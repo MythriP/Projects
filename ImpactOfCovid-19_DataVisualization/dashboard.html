@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID-19 Comparative Dashboard</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        #selectors {
+            margin-bottom: 20px;
+        }
+        svg {
+            width: 90%;
+            height: 500px; /* Adjusted for better visibility */
+            margin: 20px auto;
+            display: block; /* Centers the svg in the div */
+            background-color: #f9f9f9; /* Added background color to see the svg boundaries */
+            border: 1px solid #ccc;
+        }
+        .axis-label {
+            font-size: 12px;
+            fill: #555;
+        }
+    </style>
+</head>
+<body>
+    <div id="selectors">
+        <label for="country-select">Select Country:</label>
+        <select id="country-select" multiple size="4"></select>
+        <label for="date-start">Start Date:</label>
+        <input type="date" id="date-start">
+        <label for="date-end">End Date:</label>
+        <input type="date" id="date-end">
+    </div>
+    <div id="charts">
+        <svg id="cases-chart"></svg>
+        <svg id="deaths-chart"></svg>
+        <svg id="density-chart"></svg>
+    </div>
+    <script>
+        d3.csv("merged_data.csv", function(d) {
+            return {
+                date: d3.timeParse("%Y-%m-%d")(d.date),
+                country: d.location,
+                totalCases: +d.total_cases,
+                newCases: +d.new_cases,
+                totalDeaths: +d.total_deaths,
+                newDeaths: +d.new_deaths,
+                totalCasesPerMillion: +d.total_cases_per_million,
+                totalDeathsPerMillion: +d.total_deaths_per_million,
+                population: +d.population,
+                populationDensity: +d.population_density,
+                medianAge: +d.median_age,
+                aged65Older: +d.aged_65_older,
+                aged70Older: +d.aged_70_older
+            };
+        }).then(function(data) {
+            initializeDashboard(data);
+        });
+
+        function initializeDashboard(data) {
+            const countries = [...new Set(data.map(d => d.country))].sort();
+            const countrySelect = d3.select("#country-select");
+            countrySelect.selectAll("option")
+                .data(countries)
+                .enter()
+                .append("option")
+                .text(d => d)
+                .attr("value", d => d);
+            countrySelect.on("change", () => updateCharts(data));
+            d3.select("#date-start").on("change", () => updateCharts(data));
+            d3.select("#date-end").on("change", () => updateCharts(data));
+            updateCharts(data); // Initial visualization update
+        }
+
+        function updateCharts(data) {
+            const selectedCountries = Array.from(d3.select("#country-select").node().selectedOptions, option => option.value);
+            let filteredData = data.filter(d => selectedCountries.includes(d.country));
+            const startDate = d3.select("#date-start").property("value");
+            const endDate = d3.select("#date-end").property("value");
+            if (startDate) filteredData = filteredData.filter(d => d.date >= new Date(startDate));
+            if (endDate) filteredData = filteredData.filter(d => d.date <= new Date(endDate));
+            updateLineChart("#cases-chart", filteredData, "newCases", "New COVID-19 Cases");
+            updateLineChart("#deaths-chart", filteredData, "newDeaths", "New COVID-19 Deaths");
+            updateLineChart("#density-chart", filteredData, "populationDensity", "Population Density");
+        }
+
+        function updateLineChart(selector, data, metric, title) {
+            const svg = d3.select(selector);
+            svg.selectAll("*").remove(); // Clear previous drawings
+            const margin = { top: 50, right: 20, bottom: 50, left: 60 },
+                  width = svg.node().getBoundingClientRect().width - margin.left - margin.right,
+                  height = svg.node().getBoundingClientRect().height - margin.top - margin.bottom;
+            const x = d3.scaleTime()
+                .rangeRound([0, width])
+                .domain(d3.extent(data, d => d.date));
+            const yMax = d3.max(data, d => d[metric]);
+            const y = d3.scaleLinear()
+                .rangeRound([height, 0])
+                .domain([0, yMax]);
+            const line = d3.line()
+                .x(d => x(d.date))
+                .y(d => y(d[metric]));
+            const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+            g.append("g")
+                .attr("transform", `translate(0,${height})`)
+                .call(d3.axisBottom(x));
+            g.append("g")
+                .call(d3.axisLeft(y))
+                .append("text")
+                .attr("class", "axis-label")
+                .attr("transform", "rotate(-90)")
+                .attr("y", -50)
+                .attr("x", -height / 2)
+                .attr("text-anchor", "middle")
+                .text(title);
+            g.append("path")
+                .datum(data)
+                .attr("fill", "none")
+                .attr("stroke", "steelblue")
+                .attr("stroke-width", 2)
+                .attr("d", line);
+        }
+    </script>
+</body>
+</html>
+
+
