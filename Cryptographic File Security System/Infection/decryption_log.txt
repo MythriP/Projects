@@ -1,0 +1,6 @@
+Decrypted files List:
+C:\Users\WOLINGS\Desktop\Ransomware\demo_file1.txt
+Decrypted files List:
+C:\Users\WOLINGS\Desktop\Ransomware\demo_file2.txt
+Decrypted files List:
+C:\Users\WOLINGS\Desktop\Ransomware\demo_file3.txt
