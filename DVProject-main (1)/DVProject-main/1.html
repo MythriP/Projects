@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Year-Wise COVID-19 Data Visualization with Population Density</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        .bar {
+            fill-opacity: 0.7;
+        }
+        .bar:hover {
+            fill-opacity: 1;
+        }
+        .axis-label {
+            font-size: 12px;
+            font-family: sans-serif;
+        }
+        .tooltip {
+            position: absolute;
+            text-align: center;
+            width: 120px;
+            height: auto;
+            padding: 2px;
+            font: 12px sans-serif;
+            background: lightsteelblue;
+            border: 0px;
+            border-radius: 8px;
+            pointer-events: none;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <label for="countrySelect">Select Country:</label>
+    <select id="countrySelect"></select>
+    <svg width="1000" height="600"></svg>
+    <div class="tooltip"></div>
+    <script>
+        const svg = d3.select("svg"),
+              margin = {top: 20, right: 20, bottom: 70, left: 80},
+              width = +svg.attr("width") - margin.left - margin.right,
+              height = +svg.attr("height") - margin.top - margin.bottom,
+              g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const x0 = d3.scaleBand().rangeRound([0, width]).paddingInner(0.1),
+              x1 = d3.scaleBand(),
+              y = d3.scaleLinear().rangeRound([height, 0]);
+
+        const xAxis = g.append("g").attr("transform", `translate(0,${height})`),
+              yAxis = g.append("g");
+
+        const tooltip = d3.select(".tooltip");
+
+        // Load data
+        d3.csv("cleaned_covid_data.csv", d => {
+            d.date = d3.timeParse("%Y-%m-%d")(d.date);
+            d.year = d.date.getFullYear();
+            d.total_cases_per_million = +d.total_cases_per_million;
+            d.total_deaths_per_million = +d.total_deaths_per_million;
+            d.population_density = +d.population_density;
+            return d;
+        }).then(function(data) {
+            const countries = Array.from(new Set(data.map(d => d.location))).sort();
+
+            const select = d3.select("#countrySelect")
+                             .on("change", function(event) {
+                                 updateChart(event.target.value);
+                             });
+
+            select.selectAll("option")
+                  .data(countries)
+                  .enter().append("option")
+                  .text(d => d)
+                  .attr("value", d => d);
+
+            function updateChart(selectedCountry) {
+                const filteredData = data.filter(d => d.location === selectedCountry);
+                const years = Array.from(new Set(filteredData.map(d => d.year)));
+
+                x0.domain(years);
+                x1.domain(['total_cases_per_million', 'total_deaths_per_million', 'population_density'])
+                  .rangeRound([0, x0.bandwidth()])
+                  .padding(0.1); // Adjust the padding for clarity
+
+                y.domain([0, d3.max(filteredData, d => Math.max(d.total_cases_per_million, d.total_deaths_per_million, d.population_density))]);
+
+                xAxis.call(d3.axisBottom(x0));
+                yAxis.call(d3.axisLeft(y));
+
+                g.selectAll(".bar-group").remove();
+
+                const barGroups = g.selectAll(".bar-group")
+                                    .data(filteredData)
+                                    .enter().append("g")
+                                    .attr("class", "bar-group")
+                                    .attr("transform", d => `translate(${x0(d.year)},0)`);
+
+                barGroups.selectAll("rect")
+                          .data(d => [
+                              {key: 'Total Cases per Million', value: d.total_cases_per_million, color: 'blue', year: d.year}, 
+                              {key: 'Total Deaths per Million', value: d.total_deaths_per_million, color: 'red', year: d.year},
+                              {key: 'Population Density', value: d.population_density, color: 'green', year: d.year}
+                          ])
+                          .enter().append("rect")
+                          .attr("x", d => x1(d.key))
+                          .attr("y", d => y(d.value))
+                          .attr("width", x1.bandwidth())
+                          .attr("height", d => height - y(d.value))
+                          .attr("fill", d => d.color)
+                          .on("mouseover", function(event, d) {
+                              tooltip.style("opacity", 1)
+                                     .html(`Year: ${d.year}<br>${d.key}: ${d.value}`)
+                                     .style("left", (event.pageX + 10) + "px")
+                                     .style("top", (event.pageY - 28) + "px");
+                          })
+                          .on("mouseout", function(d) {
+                              tooltip.style("opacity", 0);
+                          });
+            }
+
+            // Initialize the chart with the first country if available
+            if (countries.length > 0) {
+                updateChart(countries[0]);
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
