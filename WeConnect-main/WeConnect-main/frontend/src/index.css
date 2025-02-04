@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&family=Poppins:wght@200;300;400;500;600&display=swap");
+
+:root {
+  --montserrat: "Montserrat", sans-serif;
+  --poppins: "Poppins", sans-serif;
+  --l-body-bg: #eef3fa;
+  --l-card-bg: #e7eef5;
+  --l-profile-bg: #e7eef5;
+  --l-btn-bg: #0094ff;
+  --l-logo-colour: #2a4583;
+  --l-shadow: #a3b1c6;
+  --l-grey: #7788a7;
+  --l-dark-grey: #5c6b88;
+  --card-radius: 10px;
+  --l-white-border: 4px solid rgba(255, 255, 255, 0.2);
+  --l-main-shadow: -9px -9px 16px rgba(255, 255, 255, 0.6),
+    9px 9px 16px rgba(163, 177, 198, 0.6);
+  --l-second-shadow: -5px -5px 16px rgba(255, 255, 255, 0.6),
+    5px 5px 16px rgba(163, 177, 198, 0.6);
+
+  --d-body-bg: #282c34;
+  --d-card-bg: #282c34;
+
+  --d-main-shadow: -9px -9px 16px rgba(204, 222, 255, 0.075),
+    9px 9px 16px rgba(154, 210, 255, 0.048);
+
+  --d-second-shadow: -5px -5px 16px rgba(56, 61, 73, 0.6),
+    5px 5px 16px rgba(77, 77, 77, 0.6);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--l-body-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+button,
+input {
+  border: none;
+  outline: none;
+}
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(249, 251, 255) transparent;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(249, 251, 255);
+  border-radius: 20px;
+}
+
+button:hover {
+  font-weight: bold;
+}

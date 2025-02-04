@@ -1,0 +1,84 @@
+.signup {
+  border: 1px solid red;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  background: var(--l-card-bg);
+  border: var(--l-white-border);
+  box-shadow: var(--l-main-shadow);
+  border-radius: var(--card-radius);
+}
+
+.signup h1 {
+  color: var(--l-logo-colour);
+  font-family: var(--poppins);
+}
+
+.signup form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.signup form .alert-text {
+  color: rgba(255, 0, 0, 0.657);
+}
+
+.signup form input {
+  background: var(--l-card-bg);
+  box-shadow: var(--l-second-shadow);
+  padding: 10px;
+  width: 100%;
+  height: 50px;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  color: var(--l-grey);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--montserrat);
+}
+
+.signup form .err {
+  border-bottom: 2px solid rgba(255, 0, 0, 0.657);
+}
+
+.signup form .correct {
+  border-bottom: 2px solid rgb(67, 177, 57);
+}
+
+.signup form input:hover {
+  /* border-bottom: 2px solid var(--l-grey); */
+  border-bottom: 2px solid rgba(140, 148, 173, 0.582);
+}
+
+.signup form input::placeholder {
+  color: var(--l-grey);
+}
+
+.signup form a {
+  color: var(--l-btn-bg);
+  font-size: 15px;
+  font-family: var(--poppins);
+  margin: 1rem 0;
+  align-self: flex-end;
+}
+
+.signup form button {
+  width: 100% !important ;
+  margin: 2rem 0;
+}
+
+.signup form p {
+  color: var(--l-grey);
+  font-family: var(--poppins);
+  font-size: 15px;
+}
+
+.signup form p a {
+  font-weight: 600;
+}

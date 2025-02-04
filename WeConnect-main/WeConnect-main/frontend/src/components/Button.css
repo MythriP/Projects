@@ -1,0 +1,13 @@
+.btn {
+  color: #fff;
+  font-family: var(--poppins);
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  background: var(--l-btn-bg);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn__disabled {
+  opacity: 0.5;
+}

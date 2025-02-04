@@ -1,0 +1,13 @@
+.container {
+  background: var(--l-card-bg);
+  box-shadow: var(--l-main-shadow);
+  border: var(--l-white-border);
+  border-radius: var(--card-radius);
+}
+
+.d {
+  background: var(--d-card-bg);
+  box-shadow: var(--d-main-shadow);
+  border: var(--d-white-border);
+  border-radius: var(--card-radius);
+}

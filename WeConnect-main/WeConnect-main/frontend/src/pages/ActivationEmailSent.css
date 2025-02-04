@@ -1,0 +1,33 @@
+.activationEmail {
+  border: 1px solid red;
+  width: 450px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  background: var(--l-card-bg);
+  border: var(--l-white-border);
+  box-shadow: var(--l-main-shadow);
+  border-radius: var(--card-radius);
+}
+
+.activationEmail h1 {
+  color: var(--l-logo-colour);
+  font-family: var(--poppins);
+  margin-bottom: 1rem;
+}
+
+.activationEmail p {
+  font-family: var(--montserrat);
+  color: var(--l-grey);
+  margin-bottom: 1rem;
+}
+
+.activationEmail button {
+  color: #fff;
+  font-family: var(--poppins);
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  background: var(--l-btn-bg);
+  border-radius: 4px;
+}

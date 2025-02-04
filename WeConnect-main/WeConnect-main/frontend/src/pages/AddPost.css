@@ -1,0 +1,92 @@
+.thumbs-wrapper,
+.carousel-status {
+  display: none;
+}
+
+.carousel .control-dots .dot.selected,
+.carousel .control-dots .dot:hover {
+  opacity: 0.8;
+  /* filter: alpha(opacity=100); */
+  background: black;
+}
+
+.carousel .slide iframe {
+  display: inline-block;
+  width: 500px !important;
+  /* margin: 0 40px 40px; */
+  border: 0 !important;
+}
+
+.addpost {
+  margin-bottom: 5rem;
+  width: 100%;
+}
+
+/* Add Post Images */
+
+.addpost__images {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.addpost__images img {
+  width: 80%;
+  object-fit: contain;
+  border-radius: var(--card-radius);
+}
+
+/* Add Post Caption */
+
+.addpost__caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* margin-bottom: 1rem; */
+  padding: 1rem;
+  position: relative;
+}
+
+.addpost__caption svg {
+  margin-right: 1rem;
+}
+
+.addpost__caption input[type="text"] {
+  flex: 1;
+  height: 35px;
+  border-radius: 35px;
+  padding: 0 1rem;
+  color: var(--l-grey);
+  font-family: var(--montserrat);
+  font-weight: 600;
+  margin-right: 1rem;
+}
+
+.addpost__caption .emoji-picker-react {
+  position: absolute;
+  top: 4rem;
+  left: 1rem;
+  box-shadow: none;
+  z-index: 10;
+}
+
+/* Add Post Upload Options */
+.addpost__uploadOptions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+/* Post Button */
+
+/* .postbtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 1rem 1rem 1rem;
+} */

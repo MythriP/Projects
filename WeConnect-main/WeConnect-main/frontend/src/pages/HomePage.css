@@ -1,0 +1,30 @@
+.main_section {
+  width: 100%;
+  min-height: inherit;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+}
+
+.main_section .posts {
+  width: 40rem;
+}
+
+.main_section .miniprofile {
+  width: 350px;
+  height: 500px;
+  position: fixed;
+  right: 10rem;
+  z-index: 5;
+}
+
+@media only screen and (max-width: 1350px) {
+  .main_section {
+    width: 100%;
+    justify-content: center;
+  }
+  .main_section .miniprofile {
+    display: none;
+  }
+}

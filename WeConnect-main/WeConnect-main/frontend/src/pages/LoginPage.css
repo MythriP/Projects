@@ -1,0 +1,124 @@
+.login {
+  border: 1px solid red;
+  width: 400px;
+  min-width: 400px;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  flex-direction: column;
+  padding: 30px;
+  background: var(--l-card-bg);
+  border: var(--l-white-border);
+  box-shadow: var(--l-main-shadow);
+  border-radius: var(--card-radius);
+}
+
+.login h1 {
+  color: var(--l-logo-colour);
+  font-family: var(--poppins);
+}
+
+.login form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.login form .err {
+  border-bottom: 2px solid rgba(255, 0, 0, 0.657);
+}
+
+.login form .correct {
+  border-bottom: 2px solid rgb(67, 177, 57);
+}
+
+.login form input {
+  background: var(--l-card-bg);
+  box-shadow: var(--l-second-shadow);
+  padding: 10px;
+  width: 100%;
+  height: 50px;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  color: var(--l-grey);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--montserrat);
+}
+
+.login form input:hover {
+  /* border-bottom: 2px solid var(--l-grey); */
+  border-bottom: 2px solid rgba(140, 148, 173, 0.582);
+}
+
+.login form input::placeholder {
+  color: var(--l-grey);
+}
+
+.login form a {
+  color: var(--l-btn-bg);
+  font-size: 15px;
+  font-family: var(--poppins);
+  margin: 1rem 0;
+  align-self: flex-end;
+}
+
+.login form input {
+  background: var(--l-card-bg);
+  box-shadow: var(--l-second-shadow);
+  padding: 10px;
+  width: 100%;
+  height: 50px;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  color: var(--l-grey);
+  font-size: 15px;
+}
+
+.login form input::placeholder {
+  color: var(--l-grey);
+}
+
+.login form button {
+  width: 100% !important ;
+  margin: 2rem 0;
+  font-size: 15px;
+}
+
+.login form p {
+  color: var(--l-grey);
+  font-family: var(--poppins);
+  font-size: 15px;
+}
+
+.login form p a {
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 715px) {
+  .login {
+    /* padding: 0 0; */
+    /* width: 100%; */
+    min-width: none;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .login {
+    width: 100%;
+    min-width: none;
+    border: 1px solid green;
+    padding: 0.5rem;
+  }
+  .login form {
+    width: 100%;
+    border: 1px solid red;
+  }
+  .login form input {
+    width: 100%;
+    height: auto;
+  }
+}

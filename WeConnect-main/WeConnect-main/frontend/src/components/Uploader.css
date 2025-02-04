@@ -1,0 +1,12 @@
+.uploader div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.uploader p {
+  font-family: var(--poppins);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--l-grey);
+}
